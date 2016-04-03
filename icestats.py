@@ -6,8 +6,9 @@ import datetime;
 
 class Stream():
 	def __init__(self, data):
+		self.bitrate = None;
 		if "bitrate" in data:
-			self.bitrate = int(data["bitrate"]) / 1024;
+			self.bitrate = int(data["bitrate"]) * 1024;
 
 		self.mimetype = None;
 		if "server_type" in data:
@@ -16,6 +17,7 @@ class Stream():
 		if not self.mimetype:
 			self.mimetype = mimetypes.guess_type(data["listenurl"]);
 
+		self.timestamp = None;
 		if "stream_start" in data:
 			self.timestamp = int(time.mktime(datetime.datetime.strptime(data["stream_start"], "%a, %d %b %Y %H:%M:%S %z").timetuple()));
 
